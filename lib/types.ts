@@ -2,6 +2,30 @@ export type PaceBand = "easy" | "moderate" | "fast" | "all";
 
 export type ClubStatus = "live" | "pending" | "archived";
 
+/**
+ * How a club's details were confirmed with the people who run it.
+ * RunClubs.in only marks a club "verified" after a real human confirmation —
+ * never inferred, never fabricated.
+ */
+export type VerificationMethod =
+  | "organizer-dm"
+  | "whatsapp"
+  | "instagram"
+  | "website"
+  | "in-person"
+  | "phone"
+  | "email";
+
+export const VERIFICATION_METHOD_LABEL: Record<VerificationMethod, string> = {
+  "organizer-dm": "Direct message with organizer",
+  whatsapp: "Confirmed over WhatsApp",
+  instagram: "Confirmed via Instagram",
+  website: "Confirmed via club website",
+  "in-person": "Verified in person at a run",
+  phone: "Confirmed by phone",
+  email: "Confirmed over email",
+};
+
 export interface Club {
   id: string;
   slug: string;
@@ -34,6 +58,12 @@ export interface Club {
   description: string;
   howToJoin: string;
   verified: boolean;
+  /** ISO date the club was last confirmed with its organizers. */
+  verifiedAt?: string;
+  /** How the club was confirmed. */
+  verificationMethod?: VerificationMethod;
+  /** Free-text note on the verification (who confirmed, any caveats). */
+  verificationSource?: string;
   status: ClubStatus;
   lastUpdated: string;
 }

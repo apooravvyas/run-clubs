@@ -2,6 +2,7 @@ import "server-only";
 import seed from "@/data/clubs.json";
 import type { Club, CityMeta } from "@/lib/types";
 import { getSupabase, supabaseEnabled } from "@/lib/supabase";
+import { needsRecheck as needsRecheckFn } from "@/lib/verification";
 
 const seedClubs = seed.clubs as Club[];
 const seedCities = seed.cities as CityMeta[];
@@ -46,7 +47,8 @@ export async function getStats() {
   const cities = new Set(clubs.map((c) => c.city)).size;
   const runners = clubs.reduce((sum, c) => sum + c.avgAttendance, 0);
   const verified = clubs.filter((c) => c.verified).length;
-  return { clubs: clubs.length, cities, runners, verified };
+  const needsRecheck = clubs.filter((c) => needsRecheckFn(c)).length;
+  return { clubs: clubs.length, cities, runners, verified, needsRecheck };
 }
 
 /** Map a snake_case Supabase row into the app's camelCase Club. */
@@ -84,6 +86,9 @@ function fromRow(r: any): Club {
     description: r.description,
     howToJoin: r.how_to_join,
     verified: r.verified,
+    verifiedAt: r.verified_at ?? undefined,
+    verificationMethod: r.verification_method ?? undefined,
+    verificationSource: r.verification_source ?? undefined,
     status: r.status,
     lastUpdated: r.last_updated,
   };

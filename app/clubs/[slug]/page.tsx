@@ -5,11 +5,13 @@ import Image from "next/image";
 import {
   Users, Clock, MapPin, Coffee, Baby, Trophy, HeartHandshake,
   IndianRupee, Instagram, Globe, MessageCircle, Pencil, ExternalLink, Footprints,
+  ShieldCheck, Clock3, ShieldQuestion,
 } from "lucide-react";
 import { getClubBySlug, getClubs, getClubsByCity, getCity } from "@/lib/data";
-import { PACE_LABEL } from "@/lib/types";
+import { PACE_LABEL, VERIFICATION_METHOD_LABEL, type Club } from "@/lib/types";
 import { PaceBadge } from "@/components/pace-badge";
-import { VerifiedBadge } from "@/components/verified-badge";
+import { VerificationBadge } from "@/components/verification-badge";
+import { verificationState, VERIFICATION_BLURB, daysSince } from "@/lib/verification";
 import { ClubCard } from "@/components/club-card";
 import { ClubMap } from "@/components/map/club-map";
 import { Button } from "@/components/ui/button";
@@ -60,6 +62,64 @@ function Fact({
   );
 }
 
+function VerificationCard({ club }: { club: Club }) {
+  const state = verificationState(club);
+  const age = daysSince(club.verifiedAt);
+  const Icon = state === "verified" ? ShieldCheck : state === "stale" ? Clock3 : ShieldQuestion;
+  const tone =
+    state === "verified"
+      ? "text-emerald-600"
+      : state === "stale"
+        ? "text-amber-600"
+        : "text-stone";
+  const heading =
+    state === "verified" ? "Verified with the club" : state === "stale" ? "Verified — recheck due" : "Community-listed";
+
+  return (
+    <div className="mt-4 rounded-2xl bg-white p-5 shadow-card">
+      <div className={`flex items-center gap-2 ${tone}`}>
+        <Icon className="h-5 w-5" strokeWidth={2} />
+        <p className="font-display text-base font-bold">{heading}</p>
+      </div>
+      <p className="mt-2 text-sm leading-relaxed text-ink/75">{VERIFICATION_BLURB[state]}</p>
+
+      {club.verified ? (
+        <dl className="mt-4 space-y-2 border-t border-track/70 pt-4 text-sm">
+          {club.verifiedAt && (
+            <div className="flex justify-between gap-4">
+              <dt className="text-stone">Last confirmed</dt>
+              <dd className="text-right font-medium text-ink">
+                {new Date(club.verifiedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                {age !== null && <span className="text-stone"> · {age === 0 ? "today" : `${age}d ago`}</span>}
+              </dd>
+            </div>
+          )}
+          {club.verificationMethod && (
+            <div className="flex justify-between gap-4">
+              <dt className="text-stone">How</dt>
+              <dd className="text-right font-medium text-ink">{VERIFICATION_METHOD_LABEL[club.verificationMethod]}</dd>
+            </div>
+          )}
+          {club.verificationSource && (
+            <p className="pt-1 text-[13px] leading-relaxed text-stone">{club.verificationSource}</p>
+          )}
+        </dl>
+      ) : (
+        <div className="mt-4 border-t border-track/70 pt-4">
+          <p className="text-[13px] leading-relaxed text-stone">
+            Run this club? Confirm the details and get the verified badge.
+          </p>
+          <Link href={`/submit?edit=${club.slug}`} className="mt-3 inline-block">
+            <Button variant="secondary" size="sm">
+              <ShieldCheck className="h-3.5 w-3.5" /> Verify this club
+            </Button>
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default async function ClubPage({
   params,
 }: {
@@ -101,9 +161,9 @@ export default async function ClubPage({
           <div className="mx-auto max-w-6xl px-5 pb-8">
             <div className="flex flex-wrap items-center gap-2">
               <PaceBadge band={club.paceBand} />
-              {club.verified && (
-                <span className="rounded-full bg-white/95 px-3 py-1"><VerifiedBadge /></span>
-              )}
+              <span className="rounded-full bg-white/95 px-3 py-1">
+                <VerificationBadge club={club} />
+              </span>
             </div>
             <h1 className="mt-3 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
               {club.name}
@@ -217,6 +277,9 @@ export default async function ClubPage({
                 </a>
               </div>
             </div>
+
+            {/* Verification — honest trust signal */}
+            <VerificationCard club={club} />
 
             <div className="mt-4 rounded-2xl border border-dashed border-track bg-white/60 p-5">
               <p className="text-sm text-stone">

@@ -3,15 +3,18 @@
 import { useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Check, X, Search, Upload, Users, MapPin, BadgeCheck, Inbox, Pencil,
+  Check, X, Search, Upload, MapPin, BadgeCheck, Inbox, Pencil,
+  ShieldCheck, ShieldQuestion, Clock3, RefreshCw,
 } from "lucide-react";
-import type { Club } from "@/lib/types";
+import type { Club, VerificationMethod } from "@/lib/types";
+import { VERIFICATION_METHOD_LABEL } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { PaceBadge } from "@/components/pace-badge";
 import { EmptyState } from "@/components/empty-state";
 import { cn } from "@/lib/utils";
+import { verificationState, VERIFICATION_LABEL, needsRecheck } from "@/lib/verification";
 
 interface PendingSubmission {
   id: string;
@@ -37,22 +40,61 @@ export function AdminDashboard({ clubs }: { clubs: Club[] }) {
   const [importedRows, setImportedRows] = useState<number | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  // Local, editable copy so verification actions feel real in demo mode.
+  const [clubList, setClubList] = useState<Club[]>(clubs);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [dirty, setDirty] = useState(false);
+  const [recheckOnly, setRecheckOnly] = useState(false);
+
   const filteredClubs = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return clubs;
-    return clubs.filter((c) => `${c.name} ${c.city} ${c.area}`.toLowerCase().includes(q));
-  }, [clubs, query]);
+    let list = clubList;
+    if (recheckOnly) list = list.filter((c) => needsRecheck(c));
+    if (!q) return list;
+    return list.filter((c) => `${c.name} ${c.city} ${c.area}`.toLowerCase().includes(q));
+  }, [clubList, query, recheckOnly]);
 
   const stats = useMemo(() => {
-    const verified = clubs.filter((c) => c.verified).length;
-    const cities = new Set(clubs.map((c) => c.city)).size;
-    const runners = clubs.reduce((s, c) => s + c.avgAttendance, 0);
-    return { total: clubs.length, verified, cities, runners };
-  }, [clubs]);
+    const verified = clubList.filter((c) => c.verified).length;
+    const recheck = clubList.filter((c) => needsRecheck(c)).length;
+    const cities = new Set(clubList.map((c) => c.city)).size;
+    const runners = clubList.reduce((s, c) => s + c.avgAttendance, 0);
+    return { total: clubList.length, verified, recheck, cities, runners };
+  }, [clubList]);
 
   function decide(id: string, verdict: "approved" | "rejected") {
     setQueue((q) => q.filter((s) => s.id !== id));
     setDecided((d) => ({ ...d, [verdict]: d[verdict] + 1 }));
+  }
+
+  function markVerified(id: string, method: VerificationMethod, note: string) {
+    setClubList((list) =>
+      list.map((c) =>
+        c.id === id
+          ? {
+              ...c,
+              verified: true,
+              verifiedAt: new Date().toISOString().slice(0, 10),
+              verificationMethod: method,
+              verificationSource: note.trim() || VERIFICATION_METHOD_LABEL[method],
+            }
+          : c,
+      ),
+    );
+    setEditingId(null);
+    setDirty(true);
+  }
+
+  function markUnverified(id: string) {
+    setClubList((list) =>
+      list.map((c) =>
+        c.id === id
+          ? { ...c, verified: false, verifiedAt: undefined, verificationMethod: undefined, verificationSource: undefined }
+          : c,
+      ),
+    );
+    setEditingId(null);
+    setDirty(true);
   }
 
   function handleCsv(file: File) {
@@ -93,12 +135,18 @@ export function AdminDashboard({ clubs }: { clubs: Club[] }) {
         </p>
       )}
 
+      {dirty && (
+        <p className="mt-3 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-700">
+          Verification changes are saved to this session only. Connect Supabase to persist them.
+        </p>
+      )}
+
       {/* Analytics */}
       <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {[
           { icon: MapPin, label: "Live clubs", value: stats.total },
           { icon: BadgeCheck, label: "Verified", value: stats.verified },
-          { icon: Users, label: "Weekly runners", value: `~${stats.runners}` },
+          { icon: Clock3, label: "Recheck due", value: stats.recheck },
           { icon: Inbox, label: "In queue", value: queue.length },
         ].map((s) => (
           <div key={s.label} className="rounded-2xl bg-white p-5 shadow-card">
@@ -161,7 +209,20 @@ export function AdminDashboard({ clubs }: { clubs: Club[] }) {
 
       {/* All clubs */}
       <section className="mt-14">
-        <h2 className="font-display text-2xl font-bold text-ink">All clubs</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-2xl font-bold text-ink">All clubs</h2>
+          <button
+            type="button"
+            onClick={() => setRecheckOnly((v) => !v)}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors",
+              recheckOnly ? "bg-amber-100 text-amber-800" : "bg-white text-stone shadow-card hover:text-ink",
+            )}
+          >
+            <Clock3 className="h-3.5 w-3.5" />
+            {recheckOnly ? `Showing ${stats.recheck} due for recheck` : "Show recheck due only"}
+          </button>
+        </div>
         <div className="mt-4 flex max-w-md items-center gap-2 rounded-2xl bg-white p-2 shadow-card">
           <Search className="ml-2 h-4 w-4 text-stone" />
           <Input
@@ -178,29 +239,20 @@ export function AdminDashboard({ clubs }: { clubs: Club[] }) {
                 <th className="px-5 py-3.5 font-medium">Club</th>
                 <th className="hidden px-5 py-3.5 font-medium sm:table-cell">City</th>
                 <th className="hidden px-5 py-3.5 font-medium md:table-cell">Pace</th>
-                <th className="px-5 py-3.5 font-medium">Turnout</th>
-                <th className="px-5 py-3.5 font-medium">Status</th>
+                <th className="px-5 py-3.5 font-medium">Verification</th>
+                <th className="px-5 py-3.5 text-right font-medium">Actions</th>
               </tr>
             </thead>
             <tbody>
               {filteredClubs.map((c) => (
-                <tr key={c.id} className="border-b border-track/40 transition-colors last:border-0 hover:bg-paper/70">
-                  <td className="px-5 py-3.5 font-medium text-ink">{c.name}</td>
-                  <td className="hidden px-5 py-3.5 capitalize text-stone sm:table-cell">{c.city}</td>
-                  <td className="hidden px-5 py-3.5 md:table-cell"><PaceBadge band={c.paceBand} /></td>
-                  <td className="px-5 py-3.5 tabular-nums text-stone">~{c.avgAttendance}</td>
-                  <td className="px-5 py-3.5">
-                    <span
-                      className={cn(
-                        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium",
-                        c.verified ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"
-                      )}
-                    >
-                      {c.verified ? <BadgeCheck className="h-3.5 w-3.5" /> : null}
-                      {c.verified ? "Verified" : "Unverified"}
-                    </span>
-                  </td>
-                </tr>
+                <VerificationRow
+                  key={c.id}
+                  club={c}
+                  editing={editingId === c.id}
+                  onEdit={() => setEditingId(editingId === c.id ? null : c.id)}
+                  onVerify={(method, note) => markVerified(c.id, method, note)}
+                  onUnverify={() => markUnverified(c.id)}
+                />
               ))}
               {filteredClubs.length === 0 && (
                 <tr>
@@ -214,5 +266,106 @@ export function AdminDashboard({ clubs }: { clubs: Club[] }) {
         </div>
       </section>
     </div>
+  );
+}
+
+const METHOD_OPTIONS: VerificationMethod[] = [
+  "organizer-dm", "whatsapp", "instagram", "website", "in-person", "phone", "email",
+];
+
+function StatusPill({ club }: { club: Club }) {
+  const state = verificationState(club);
+  const style =
+    state === "verified"
+      ? "bg-emerald-50 text-emerald-700"
+      : state === "stale"
+        ? "bg-amber-50 text-amber-700"
+        : "bg-stone/10 text-stone";
+  const Icon = state === "verified" ? BadgeCheck : state === "stale" ? Clock3 : ShieldQuestion;
+  return (
+    <div>
+      <span className={cn("inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium", style)}>
+        <Icon className="h-3.5 w-3.5" />
+        {VERIFICATION_LABEL[state]}
+      </span>
+      {club.verified && club.verifiedAt && (
+        <p className="mt-1 text-[11px] text-stone">
+          {new Date(club.verifiedAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function VerificationRow({
+  club,
+  editing,
+  onEdit,
+  onVerify,
+  onUnverify,
+}: {
+  club: Club;
+  editing: boolean;
+  onEdit: () => void;
+  onVerify: (method: VerificationMethod, note: string) => void;
+  onUnverify: () => void;
+}) {
+  const [method, setMethod] = useState<VerificationMethod>(club.verificationMethod ?? "organizer-dm");
+  const [note, setNote] = useState(club.verificationSource ?? "");
+
+  return (
+    <>
+      <tr className="border-b border-track/40 transition-colors last:border-0 hover:bg-paper/70">
+        <td className="px-5 py-3.5 font-medium text-ink">{club.name}</td>
+        <td className="hidden px-5 py-3.5 capitalize text-stone sm:table-cell">{club.city}</td>
+        <td className="hidden px-5 py-3.5 md:table-cell"><PaceBadge band={club.paceBand} /></td>
+        <td className="px-5 py-3.5"><StatusPill club={club} /></td>
+        <td className="px-5 py-3.5">
+          <div className="flex items-center justify-end gap-2">
+            {club.verified && (
+              <Button size="sm" variant="ghost" onClick={onUnverify} title="Remove verification">
+                <X className="h-3.5 w-3.5" /> Unverify
+              </Button>
+            )}
+            <Button size="sm" variant={editing ? "secondary" : "outline"} onClick={onEdit}>
+              {club.verified ? <RefreshCw className="h-3.5 w-3.5" /> : <ShieldCheck className="h-3.5 w-3.5" />}
+              {club.verified ? "Re-verify" : "Verify"}
+            </Button>
+          </div>
+        </td>
+      </tr>
+      {editing && (
+        <tr className="border-b border-track/40 bg-paper/60">
+          <td colSpan={5} className="px-5 py-4">
+            <div className="flex flex-wrap items-end gap-3">
+              <label className="flex flex-col gap-1 text-xs font-medium text-stone">
+                How was it confirmed?
+                <select
+                  value={method}
+                  onChange={(e) => setMethod(e.target.value as VerificationMethod)}
+                  className="h-10 rounded-xl border border-track bg-white px-3 text-sm text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-signal/30"
+                >
+                  {METHOD_OPTIONS.map((m) => (
+                    <option key={m} value={m}>{VERIFICATION_METHOD_LABEL[m]}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="flex min-w-[240px] flex-1 flex-col gap-1 text-xs font-medium text-stone">
+                Note (who confirmed, any caveats)
+                <Input
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  placeholder="e.g. Confirmed with Priya on the club WhatsApp"
+                  className="h-10"
+                />
+              </label>
+              <Button size="sm" onClick={() => onVerify(method, note)}>
+                <Check className="h-4 w-4" /> Save verification
+              </Button>
+            </div>
+          </td>
+        </tr>
+      )}
+    </>
   );
 }

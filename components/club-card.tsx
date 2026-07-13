@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Users, Clock, MapPin } from "lucide-react";
 import type { Club } from "@/lib/types";
 import { PaceBadge } from "@/components/pace-badge";
-import { VerifiedBadge } from "@/components/verified-badge";
+import { VerificationBadge } from "@/components/verification-badge";
 import { formatDays } from "@/lib/utils";
 
 export function ClubCard({ club, index = 0 }: { club: Club; index?: number }) {
@@ -40,7 +40,7 @@ export function ClubCard({ club, index = 0 }: { club: Club; index?: number }) {
         <div className="p-5">
           <div className="flex items-start justify-between gap-3">
             <h3 className="font-display text-lg font-bold leading-snug text-ink">{club.name}</h3>
-            {club.verified && <VerifiedBadge compact />}
+            <VerificationBadge club={club} compact />
           </div>
           <p className="mt-1 flex items-center gap-1.5 text-sm text-stone">
             <MapPin className="h-3.5 w-3.5" /> {club.area}
