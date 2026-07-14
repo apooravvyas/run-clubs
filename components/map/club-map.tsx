@@ -114,6 +114,9 @@ export function ClubMap({
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(containerRef.current);
 
+    map.on("error", (e) => console.error("[map] error", e && (e as { error?: unknown }).error));
+    if (workabout) renderWaMarkers(map);
+
     if (interactive && !workabout) {
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
     }
