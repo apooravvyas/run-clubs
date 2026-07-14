@@ -82,28 +82,30 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
 
   return (
     <div className="fixed inset-0 z-[60] overflow-hidden bg-[#EFEEE9]">
-      {useMapbox ? (
-        <MapboxMap
-          clubs={filtered}
-          center={center}
-          zoom={zoom}
-          selectedId={selected?.id ?? null}
-          onSelect={onSelect}
-          onReady={(m) => (mapRef.current = m as unknown as AnyMap)}
-          className="absolute inset-0"
-        />
-      ) : (
-        <ClubMap
-          clubs={filtered}
-          center={center}
-          zoom={zoom}
-          selectedId={selected?.id ?? null}
-          onSelect={onSelect}
-          workabout
-          onReady={(m) => (mapRef.current = m as unknown as AnyMap)}
-          className="absolute inset-0"
-        />
-      )}
+      <div className="absolute inset-0">
+        {useMapbox ? (
+          <MapboxMap
+            clubs={filtered}
+            center={center}
+            zoom={zoom}
+            selectedId={selected?.id ?? null}
+            onSelect={onSelect}
+            onReady={(m) => (mapRef.current = m as unknown as AnyMap)}
+            className="h-full w-full"
+          />
+        ) : (
+          <ClubMap
+            clubs={filtered}
+            center={center}
+            zoom={zoom}
+            selectedId={selected?.id ?? null}
+            onSelect={onSelect}
+            workabout
+            onReady={(m) => (mapRef.current = m as unknown as AnyMap)}
+            className="h-full w-full"
+          />
+        )}
+      </div>
 
       {/* Top-left glass card */}
       <div className="pointer-events-auto absolute left-4 top-4 z-10 w-[min(92vw,420px)]">

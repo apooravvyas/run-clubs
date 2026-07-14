@@ -84,6 +84,9 @@ export function MapboxMap({
     mapRef.current = map;
     lastView.current = { lng: center[0], lat: center[1], zoom };
 
+    const ro = new ResizeObserver(() => map.resize());
+    ro.observe(containerRef.current);
+
     map.on("style.load", () => {
       try { map.setConfigProperty("basemap", "lightPreset", "day"); } catch { /* older style */ }
     });
@@ -94,6 +97,7 @@ export function MapboxMap({
     });
 
     return () => {
+      ro.disconnect();
       map.remove();
       mapRef.current = null;
     };

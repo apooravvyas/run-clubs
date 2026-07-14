@@ -111,6 +111,9 @@ export function ClubMap({
     mapRef.current = map;
     lastView.current = { lng: center[0], lat: center[1], zoom };
 
+    const ro = new ResizeObserver(() => map.resize());
+    ro.observe(containerRef.current);
+
     if (interactive && !workabout) {
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
     }
@@ -234,6 +237,7 @@ export function ClubMap({
     });
 
     return () => {
+      ro.disconnect();
       map.remove();
       mapRef.current = null;
     };
