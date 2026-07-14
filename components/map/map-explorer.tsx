@@ -4,13 +4,13 @@ import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import type { Map as MLMap } from "maplibre-gl";
 import {
   Search, X, Users, Clock, MapPin, ArrowRight, Plus, Minus, Navigation, ArrowUpRight,
 } from "lucide-react";
 import type { Club, CityMeta, PaceBand } from "@/lib/types";
 import { PACE_SHORT } from "@/lib/types";
 import { ClubMap } from "@/components/map/club-map";
+import { MapboxMap, MAPBOX_TOKEN } from "@/components/map/mapbox-map";
 import { cn, formatDays } from "@/lib/utils";
 
 const PACE_FILTERS: (PaceBand | "any")[] = ["any", "all", "easy", "moderate", "fast"];
@@ -32,7 +32,9 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
   const [selected, setSelected] = useState<Club | null>(null);
   const [browseOpen, setBrowseOpen] = useState(false);
   const [areasOpen, setAreasOpen] = useState(false);
-  const mapRef = useRef<MLMap | null>(null);
+  type AnyMap = { flyTo: (o: Record<string, unknown>) => void; easeTo: (o: Record<string, unknown>) => void; getZoom: () => number };
+  const mapRef = useRef<AnyMap | null>(null);
+  const useMapbox = !!MAPBOX_TOKEN;
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -80,16 +82,28 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
 
   return (
     <div className="fixed inset-0 z-[60] overflow-hidden bg-[#EFEEE9]">
-      <ClubMap
-        clubs={filtered}
-        center={center}
-        zoom={zoom}
-        selectedId={selected?.id ?? null}
-        onSelect={onSelect}
-        workabout
-        onReady={(m) => (mapRef.current = m)}
-        className="absolute inset-0"
-      />
+      {useMapbox ? (
+        <MapboxMap
+          clubs={filtered}
+          center={center}
+          zoom={zoom}
+          selectedId={selected?.id ?? null}
+          onSelect={onSelect}
+          onReady={(m) => (mapRef.current = m as unknown as AnyMap)}
+          className="absolute inset-0"
+        />
+      ) : (
+        <ClubMap
+          clubs={filtered}
+          center={center}
+          zoom={zoom}
+          selectedId={selected?.id ?? null}
+          onSelect={onSelect}
+          workabout
+          onReady={(m) => (mapRef.current = m as unknown as AnyMap)}
+          className="absolute inset-0"
+        />
+      )}
 
       {/* Top-left glass card */}
       <div className="pointer-events-auto absolute left-4 top-4 z-10 w-[min(92vw,420px)]">
