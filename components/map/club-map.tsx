@@ -4,8 +4,13 @@ import { useEffect, useRef } from "react";
 import maplibregl, { Map as MLMap, GeoJSONSource } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Club } from "@/lib/types";
+import { DARK_MAP_STYLE } from "@/lib/map-style-dark";
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
+
+// Workabout camera constants (used only when `workabout` is on).
+const WA_PITCH = 55;
+const WA_BEARING = -17.6;
 
 export interface ClubMapProps {
   clubs: Club[];
@@ -15,6 +20,11 @@ export interface ClubMapProps {
   onSelect?: (club: Club | null) => void;
   interactive?: boolean;
   className?: string;
+  /**
+   * Workabout mode — dark 3D map with tilted camera + cinematic flyTo.
+   * Default false, so the landing / city / club maps are unchanged.
+   */
+  workabout?: boolean;
 }
 
 function toGeoJSON(clubs: Club[]): GeoJSON.FeatureCollection {
@@ -36,11 +46,13 @@ export function ClubMap({
   onSelect,
   interactive = true,
   className,
+  workabout = false,
 }: ClubMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MLMap | null>(null);
   const clubsRef = useRef(clubs);
   const markerRef = useRef<maplibregl.Marker | null>(null);
+  const lastView = useRef<{ lng: number; lat: number; zoom: number } | null>(null);
   clubsRef.current = clubs;
 
   // Init once
@@ -49,17 +61,30 @@ export function ClubMap({
 
     const map = new maplibregl.Map({
       container: containerRef.current,
-      style: MAP_STYLE,
+      style: workabout ? DARK_MAP_STYLE : MAP_STYLE,
       center,
       zoom,
+      pitch: workabout ? WA_PITCH : 0,
+      bearing: workabout ? WA_BEARING : 0,
+      maxPitch: workabout ? 75 : 60,
+      antialias: workabout,
       attributionControl: { compact: true },
       interactive,
     });
     mapRef.current = map;
+    lastView.current = { lng: center[0], lat: center[1], zoom };
 
     if (interactive) {
-      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
+      map.addControl(
+        new maplibregl.NavigationControl({ showCompass: workabout, visualizePitch: workabout }),
+        "bottom-right",
+      );
     }
+
+    const clusterColor = workabout ? "#2a2a29" : "#111110";
+    const clusterStroke = workabout ? "rgba(245,244,241,0.16)" : "rgba(17,17,16,0.12)";
+    const countColor = workabout ? "#F5F3EE" : "#FAF8F5";
+    const pinStroke = workabout ? "rgba(245,244,241,0.92)" : "#FAF8F5";
 
     map.on("load", () => {
       map.addSource("clubs", {
@@ -77,10 +102,10 @@ export function ClubMap({
         source: "clubs",
         filter: ["has", "point_count"],
         paint: {
-          "circle-color": "#111110",
+          "circle-color": clusterColor,
           "circle-radius": ["step", ["get", "point_count"], 16, 6, 20, 15, 26],
           "circle-stroke-width": 3,
-          "circle-stroke-color": "rgba(17,17,16,0.12)",
+          "circle-stroke-color": clusterStroke,
         },
       });
       map.addLayer({
@@ -93,10 +118,10 @@ export function ClubMap({
           "text-size": 12,
           "text-font": ["Noto Sans Bold"],
         },
-        paint: { "text-color": "#FAF8F5" },
+        paint: { "text-color": countColor },
       });
 
-      // Individual pins — signal orange dots with soft halo
+      // Individual pins — accent dots with soft halo
       map.addLayer({
         id: "club-halo",
         type: "circle",
@@ -117,7 +142,7 @@ export function ClubMap({
           "circle-color": "#D97757",
           "circle-radius": 6.5,
           "circle-stroke-width": 2.5,
-          "circle-stroke-color": "#FAF8F5",
+          "circle-stroke-color": pinStroke,
         },
       });
 
@@ -131,7 +156,8 @@ export function ClubMap({
         map.easeTo({
           center: (features[0].geometry as GeoJSON.Point).coordinates as [number, number],
           zoom: zoomTo + 0.4,
-          duration: 500,
+          duration: 600,
+          ...(workabout ? { pitch: WA_PITCH, bearing: WA_BEARING } : {}),
         });
       });
 
@@ -139,8 +165,22 @@ export function ClubMap({
         const id = e.features?.[0]?.properties?.id as string | undefined;
         const club = clubsRef.current.find((c) => c.id === id) ?? null;
         if (club) {
-          map.easeTo({ center: [club.lng, club.lat], duration: 450, offset: [0, -60] });
+          if (workabout) {
+            // Cinematic dive INTO the location — never zoom out to overview first.
+            map.flyTo({
+              center: [club.lng, club.lat],
+              zoom: 16,
+              pitch: 60,
+              bearing: WA_BEARING,
+              duration: 2200,
+              curve: 1.6,
+              essential: true,
+            });
+          } else {
+            map.easeTo({ center: [club.lng, club.lat], duration: 450, offset: [0, -60] });
+          }
         }
+        // Open the card immediately (do not await moveend).
         onSelect?.(club);
       });
 
@@ -195,12 +235,29 @@ export function ClubMap({
       .addTo(map);
   }, [selectedId, clubs]);
 
-  // Respond to center/zoom prop changes (e.g., city switch)
+  // Respond to center/zoom prop changes (e.g., city switch) — guarded so it
+  // only moves when the target actually changes (avoids re-firing on every render).
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    map.easeTo({ center, zoom, duration: 700 });
-  }, [center, zoom]);
+    const next = { lng: center[0], lat: center[1], zoom };
+    const prev = lastView.current;
+    if (
+      prev &&
+      Math.abs(prev.lng - next.lng) < 1e-6 &&
+      Math.abs(prev.lat - next.lat) < 1e-6 &&
+      Math.abs(prev.zoom - next.zoom) < 1e-6
+    ) {
+      return;
+    }
+    lastView.current = next;
+    if (workabout) {
+      map.flyTo({ center, zoom, pitch: WA_PITCH, bearing: WA_BEARING, duration: 1600, curve: 1.5, essential: true });
+    } else {
+      map.easeTo({ center, zoom, duration: 700 });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [center, zoom, workabout]);
 
   return <div ref={containerRef} className={className ?? "h-full w-full"} aria-label="Map of run clubs" />;
 }

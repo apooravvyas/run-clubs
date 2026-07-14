@@ -44,11 +44,16 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
     });
   }, [clubs, query, city, pace, beginnerOnly, freeOnly]);
 
+  // Workabout /map opens on a pitched, city-level view (all clubs still shown) so
+  // the 3D dark map reads immediately — rather than a flat country overview.
+  const WA_DEFAULT_ZOOM = 12.4;
+  const defaultCity = cities.find((c) => c.slug === "bangalore") ?? cities[0];
   const activeCity = cities.find((c) => c.slug === city);
-  const center: [number, number] = activeCity
-    ? [activeCity.lng, activeCity.lat]
+  const cameraCity = activeCity ?? defaultCity;
+  const center: [number, number] = cameraCity
+    ? [cameraCity.lng, cameraCity.lat]
     : [78.9629, 21.5937];
-  const zoom = activeCity ? activeCity.zoom : 4.2;
+  const zoom = activeCity ? activeCity.zoom : WA_DEFAULT_ZOOM;
 
   return (
     <div className="relative h-[calc(100dvh-4rem)] w-full overflow-hidden">
@@ -58,6 +63,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
         zoom={zoom}
         selectedId={selected?.id ?? null}
         onSelect={setSelected}
+        workabout
         className="h-full w-full"
       />
 
