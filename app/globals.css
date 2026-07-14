@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Workabout visual system — design tokens ──────────────────────────
+   Dark surface tokens are defined here but NOT applied to <body> globally
+   (that would darken the marketing + club pages). They are applied scoped
+   to the /map screen in a later phase. The accent + fonts DO apply site-wide. */
+:root {
+  /* Dark surface (scoped to /map) */
+  --bg: #080808;
+  --ink: #F5F3EE;
+  --ink-dim: rgba(245, 244, 241, 0.68);
+
+  /* Accent (site-wide) — Workabout terracotta, replaces the old signal orange */
+  --accent: #D97757;
+  --accent-rgb: 217 119 87;
+  --accent-deep: #C25E3F;
+  --accent-deep-rgb: 194 94 63;
+  --accent-soft: #F6E7E0;
+
+  /* Glass panels (used on /map in a later phase) */
+  --panel-glass-bg: rgba(20, 20, 19, 0.55);
+  --panel-glass-border: rgba(255, 255, 255, 0.14);
+  --pin-fill: #2a2a29;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -36,4 +59,32 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+
+/* ── Glass panel utilities (Workabout) — defined in Phase 1, applied in Phase 2 ── */
+.glass {
+  background: var(--panel-glass-bg);
+  backdrop-filter: blur(30px) saturate(1.45) brightness(1.08);
+  -webkit-backdrop-filter: blur(30px) saturate(1.45) brightness(1.08);
+  border: 1px solid var(--panel-glass-border);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 28px 90px rgba(0, 0, 0, 0.55);
+  border-radius: 12px;
+}
+.glass-pill {
+  background: var(--panel-glass-bg);
+  backdrop-filter: blur(14px) saturate(1.25) brightness(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25) brightness(1.12);
+  border: 1px solid var(--panel-glass-border);
+  border-radius: 999px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Mono micro-label helper (Workabout) */
+.micro-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  color: var(--ink-dim);
 }

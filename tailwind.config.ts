@@ -9,16 +9,22 @@ const config: Config = {
         ink: "#111110",
         stone: { DEFAULT: "#8A8680", light: "#B5B1AA" },
         track: "#E9E5DE",
-        signal: { DEFAULT: "#FF5A1F", soft: "#FFF0E9", deep: "#E24A12" },
+        // Accent (Workabout terracotta) driven by CSS vars so opacity modifiers work.
+        signal: {
+          DEFAULT: "rgb(var(--accent-rgb) / <alpha-value>)",
+          soft: "var(--accent-soft)",
+          deep: "rgb(var(--accent-deep-rgb) / <alpha-value>)",
+        },
       },
       fontFamily: {
-        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "ui-serif", "Georgia", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       boxShadow: {
         card: "0 1px 2px rgba(17,17,16,0.04), 0 8px 24px rgba(17,17,16,0.06)",
         lift: "0 2px 4px rgba(17,17,16,0.05), 0 16px 40px rgba(17,17,16,0.10)",
-        pin: "0 2px 8px rgba(226,74,18,0.35)",
+        pin: "0 2px 8px rgba(217,119,87,0.35)",
       },
       borderRadius: { xl2: "1.25rem" },
       animation: {

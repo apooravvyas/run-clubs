@@ -103,7 +103,7 @@ export function ClubMap({
         source: "clubs",
         filter: ["!", ["has", "point_count"]],
         paint: {
-          "circle-color": "#FF5A1F",
+          "circle-color": "#D97757",
           "circle-opacity": 0.18,
           "circle-radius": 14,
         },
@@ -114,7 +114,7 @@ export function ClubMap({
         source: "clubs",
         filter: ["!", ["has", "point_count"]],
         paint: {
-          "circle-color": "#FF5A1F",
+          "circle-color": "#D97757",
           "circle-radius": 6.5,
           "circle-stroke-width": 2.5,
           "circle-stroke-color": "#FAF8F5",

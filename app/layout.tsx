@@ -1,15 +1,27 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
-const display = Bricolage_Grotesque({
+// Fraunces — display/brand. Variable font: full weight range (incl. 350/400/600)
+// plus optical sizing (opsz) and italic for the brand suffix.
+const display = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["500", "600", "700", "800"],
+  axes: ["opsz"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
+// Inter — body/UI.
+const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+// IBM Plex Mono — micro-labels (static font: explicit weights).
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "600"],
+  display: "swap",
+});
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://runclubs.in";
 
@@ -39,7 +51,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body className="font-sans">
         <Navbar />
         <main>{children}</main>
