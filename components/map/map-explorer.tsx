@@ -9,8 +9,12 @@ import {
 } from "lucide-react";
 import type { Club, CityMeta, PaceBand } from "@/lib/types";
 import { PACE_SHORT } from "@/lib/types";
-import { ClubMap } from "@/components/map/club-map";
-import { MapboxMap, MAPBOX_TOKEN } from "@/components/map/mapbox-map";
+import dynamic from "next/dynamic";
+
+// Lazy-load heavy map libs so only the chosen one downloads and the page
+// hydrates immediately (buttons/drawer work before the map chunk arrives).
+const ClubMap = dynamic(() => import("@/components/map/club-map").then((m) => m.ClubMap), { ssr: false });
+const MapboxMap = dynamic(() => import("@/components/map/mapbox-map").then((m) => m.MapboxMap), { ssr: false });
 import { cn, formatDays } from "@/lib/utils";
 
 const PACE_FILTERS: (PaceBand | "any")[] = ["any", "all", "easy", "moderate", "fast"];
@@ -34,7 +38,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
   const [areasOpen, setAreasOpen] = useState(false);
   type AnyMap = { flyTo: (o: Record<string, unknown>) => void; easeTo: (o: Record<string, unknown>) => void; getZoom: () => number };
   const mapRef = useRef<AnyMap | null>(null);
-  const useMapbox = !!MAPBOX_TOKEN;
+  const useMapbox = !!process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
