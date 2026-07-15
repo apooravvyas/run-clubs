@@ -252,3 +252,7 @@
   transition: transform .15s ease, background-color .15s ease;
 }
 .wa-nav:hover { transform: translateY(-1px); background: #151515; }
+
+/* Hide scrollbar for the landing carousel */
+.hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }

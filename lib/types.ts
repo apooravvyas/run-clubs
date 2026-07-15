@@ -94,6 +94,8 @@ export interface CityMeta {
   lng: number;
   zoom: number;
   blurb: string;
+  /** Curated city photo for the landing city-selector (swappable). */
+  image?: string;
 }
 
 export const PACE_LABEL: Record<PaceBand, string> = {
