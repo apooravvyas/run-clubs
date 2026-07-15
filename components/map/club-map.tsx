@@ -220,14 +220,14 @@ export function ClubMap({
         type: "circle",
         source: "clubs",
         filter: ["!", ["has", "point_count"]],
-        paint: { "circle-color": "#D97757", "circle-opacity": 0.18, "circle-radius": 14 },
+        paint: { "circle-color": "#1C1C1B", "circle-opacity": 0.18, "circle-radius": 14 },
       });
       map.addLayer({
         id: "club-point",
         type: "circle",
         source: "clubs",
         filter: ["!", ["has", "point_count"]],
-        paint: { "circle-color": "#D97757", "circle-radius": 6.5, "circle-stroke-width": 2.5, "circle-stroke-color": "#FAF8F5" },
+        paint: { "circle-color": "#1C1C1B", "circle-radius": 6.5, "circle-stroke-width": 2.5, "circle-stroke-color": "#FAF8F5" },
       });
 
       map.on("click", "clusters", async (e) => {

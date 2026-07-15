@@ -24,7 +24,7 @@ const config: Config = {
       boxShadow: {
         card: "0 1px 2px rgba(17,17,16,0.04), 0 8px 24px rgba(17,17,16,0.06)",
         lift: "0 2px 4px rgba(17,17,16,0.05), 0 16px 40px rgba(17,17,16,0.10)",
-        pin: "0 2px 8px rgba(217,119,87,0.35)",
+        pin: "0 2px 8px rgba(0,0,0,0.20)",
       },
       borderRadius: { xl2: "1.25rem" },
       animation: {

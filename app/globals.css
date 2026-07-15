@@ -12,12 +12,13 @@
   --ink: #F5F3EE;
   --ink-dim: rgba(245, 244, 241, 0.68);
 
-  /* Accent (site-wide) — Workabout terracotta, replaces the old signal orange */
-  --accent: #D97757;
-  --accent-rgb: 217 119 87;
-  --accent-deep: #C25E3F;
-  --accent-deep-rgb: 194 94 63;
-  --accent-soft: #F6E7E0;
+  /* Accent — restrained editorial ink (monochrome, matches the map chrome).
+     No chromatic orange/terracotta anywhere in the product. */
+  --accent: #1C1C1B;
+  --accent-rgb: 28 28 27;
+  --accent-deep: #000000;
+  --accent-deep-rgb: 0 0 0;
+  --accent-soft: #ECEAE3;
 
   /* Glass panels (used on /map in a later phase) */
   --panel-glass-bg: rgba(20, 20, 19, 0.55);

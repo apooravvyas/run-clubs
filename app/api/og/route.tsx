@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
               width: 28,
               height: 28,
               borderRadius: 999,
-              backgroundColor: "#D97757",
+              backgroundColor: "#1C1C1B",
               display: "flex",
             }}
           />
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
           <div
             style={{
               fontSize: 26,
-              color: "#C25E3F",
+              color: "#1C1C1B",
               backgroundColor: "#FFF0E9",
               padding: "12px 28px",
               borderRadius: 999,
