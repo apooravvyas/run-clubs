@@ -70,7 +70,7 @@ export function ClubMap({
       pin.type = "button";
       pin.className = "wa-pin" + (c.id === selectedRef.current ? " is-selected" : "");
       pin.setAttribute("aria-label", c.name);
-      pin.innerHTML = `<span class="wa-pin__v">${c.avgAttendance}</span>`;
+      pin.innerHTML = `<span class="wa-pin__v">${c.avgAttendance > 0 ? c.avgAttendance : ""}</span>`;
       pin.addEventListener("click", (ev) => {
         ev.stopPropagation();
         onSelectRef.current?.(c);

@@ -55,7 +55,7 @@ export function MapboxMap({
       pin.type = "button";
       pin.className = "wa-pin" + (c.id === selectedRef.current ? " is-selected" : "");
       pin.setAttribute("aria-label", c.name);
-      pin.innerHTML = `<span class="wa-pin__v">${c.avgAttendance}</span>`;
+      pin.innerHTML = `<span class="wa-pin__v">${c.avgAttendance > 0 ? c.avgAttendance : ""}</span>`;
       pin.addEventListener("click", (ev) => {
         ev.stopPropagation();
         onSelectRef.current?.(c);
@@ -93,7 +93,13 @@ export function MapboxMap({
     const readyTimer = setTimeout(fireReady, 6000);
 
     map.on("style.load", () => {
-      try { map.setConfigProperty("basemap", "lightPreset", "day"); } catch { /* older style */ }
+      // Day/night lighting by the viewer's local time (Mapbox Standard presets).
+      const h = new Date().getHours();
+      const preset = h < 6 ? "night" : h < 8 ? "dawn" : h < 17 ? "day" : h < 20 ? "dusk" : "night";
+      try {
+        map.setConfigProperty("basemap", "lightPreset", preset);
+        map.setConfigProperty("basemap", "show3dObjects", true);
+      } catch { /* older style */ }
     });
     map.on("load", () => {
       renderMarkers(map);

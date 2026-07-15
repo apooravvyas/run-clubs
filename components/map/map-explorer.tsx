@@ -13,7 +13,6 @@ import dynamic from "next/dynamic";
 
 // Lazy-load heavy map libs so only the chosen one downloads and the page
 // hydrates immediately (buttons/drawer work before the map chunk arrives).
-const ClubMap = dynamic(() => import("@/components/map/club-map").then((m) => m.ClubMap), { ssr: false });
 const MapboxMap = dynamic(() => import("@/components/map/mapbox-map").then((m) => m.MapboxMap), { ssr: false });
 import { MapLoader } from "@/components/map/map-loader";
 import { cn, formatDays } from "@/lib/utils";
@@ -96,7 +95,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
   return (
     <div className="fixed inset-0 z-[60] overflow-hidden bg-[#EFEEE9]">
       <div className={cn("absolute inset-0 map-stage", ready ? "map-stage--ready" : "map-stage--loading")}>
-        {useMapbox ? (
+        {useMapbox && (
           <MapboxMap
             clubs={filtered}
             center={center}
@@ -106,22 +105,11 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
             onReady={handleReady}
             className="h-full w-full"
           />
-        ) : (
-          <ClubMap
-            clubs={filtered}
-            center={center}
-            zoom={zoom}
-            selectedId={selected?.id ?? null}
-            onSelect={onSelect}
-            workabout
-            onReady={handleReady}
-            className="h-full w-full"
-          />
         )}
       </div>
 
       {!loaderGone && (
-        <MapLoader city={cityLabel} lat={center[1]} lng={center[0]} hidden={ready} />
+        <MapLoader city={cityLabel} lat={center[1]} lng={center[0]} hidden={ready} noToken={!useMapbox} />
       )}
 
       {/* Top-left glass card */}
@@ -214,7 +202,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-[#e7e1d6]/80">
                   <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> {formatDays(selected.days)} · {selected.timeLocal}</span>
-                  <span className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> ~{selected.avgAttendance}</span>
+                  {selected.avgAttendance > 0 && (<span className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> ~{selected.avgAttendance}</span>)}
                   <span className="wa-mono !text-[#e7e1d6]/60">{PACE_SHORT[selected.paceBand]}</span>
                 </div>
                 <Link href={`/clubs/${selected.slug}`} className="mt-4 block">
@@ -287,7 +275,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
                   >
                     <p className="text-[16px] font-medium text-[#f7f4ee]">{c.name}</p>
                     <p className="mt-0.5 text-[12px] text-[#e7e1d6]/70">
-                      {c.area} · {formatDays(c.days)} {c.timeLocal} · ~{c.avgAttendance} runners
+                      {c.area}{c.days.length ? ` · ${formatDays(c.days)} ${c.timeLocal}` : ""}{c.avgAttendance > 0 ? ` · ~${c.avgAttendance} runners` : ""}
                     </p>
                   </button>
                 ))}

@@ -9,11 +9,13 @@ export function MapLoader({
   lat,
   lng,
   hidden,
+  noToken = false,
 }: {
   city: string;
   lat: number;
   lng: number;
   hidden: boolean;
+  noToken?: boolean;
 }) {
   const bars = Array.from({ length: 18 });
   const fmt = (v: number, pos: string, neg: string) =>
@@ -33,7 +35,7 @@ export function MapLoader({
         <span className="rule" />
         <span>{fmt(lng, "E", "W")}</span>
       </div>
-      <div className="map-loader__label">Loading {city}…</div>
+      <div className="map-loader__label">{noToken ? "Map requires configuration" : `Loading ${city}…`}</div>
     </div>
   );
 }

@@ -52,7 +52,7 @@ export function ClubCard({ club, index = 0 }: { club: Club; index?: number }) {
             </span>
             <span className="ml-auto flex items-center gap-1.5 font-medium text-ink">
               <Users className="h-3.5 w-3.5 text-signal" />
-              ~{club.avgAttendance}
+              {club.avgAttendance > 0 ? `~${club.avgAttendance}` : "—"}
             </span>
           </div>
         </div>

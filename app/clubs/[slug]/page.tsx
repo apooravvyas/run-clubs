@@ -31,7 +31,7 @@ export async function generateMetadata({
   const club = await getClubBySlug(slug);
   if (!club) return {};
   const title = `${club.name} — run club in ${club.area}`;
-  const description = `${club.days.join(", ")} at ${club.timeLocal} · ${PACE_LABEL[club.paceBand]} · ~${club.avgAttendance} runners. ${club.description}`;
+  const description = `${PACE_LABEL[club.paceBand]}. ${club.description}`.trim();
   return {
     title,
     description,
@@ -179,7 +179,7 @@ export default async function ClubPage({
         {/* Fact grid */}
         <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
           <Fact icon={Clock} label="When" value={`${club.days.join(" · ")} — ${club.timeLocal}`} />
-          <Fact icon={Users} label="Usual turnout" value={`~${club.avgAttendance} runners`} />
+          <Fact icon={Users} label="Usual turnout" value={club.avgAttendance > 0 ? `~${club.avgAttendance} runners` : "Not verified"} />
           <Fact icon={Footprints} label="Pace" value={PACE_LABEL[club.paceBand]} />
           <Fact
             icon={IndianRupee}

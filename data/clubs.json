@@ -89,7 +89,7 @@
         "Sun"
       ],
       "timeLocal": "6:00 AM",
-      "avgAttendance": 380,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -127,7 +127,7 @@
         "Sun"
       ],
       "timeLocal": "6:00 AM",
-      "avgAttendance": 200,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -165,7 +165,7 @@
         "Sun"
       ],
       "timeLocal": "6:00 AM",
-      "avgAttendance": 150,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -201,7 +201,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 80,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -239,7 +239,7 @@
         "Sun"
       ],
       "timeLocal": "6:00 AM",
-      "avgAttendance": 60,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -284,7 +284,7 @@
         "Sat"
       ],
       "timeLocal": "6:15 AM",
-      "avgAttendance": 80,
+      "avgAttendance": 0,
       "paceBand": "easy",
       "paceDetail": "Conversational 7:00+ /km, walk-run friendly",
       "typicalDistanceKm": [
@@ -309,46 +309,6 @@
       "verificationSource": "Notion: KYRO India Visit Itinerary (Aug 2026) — @daudrunclub (corrected from @daud.run)"
     },
     {
-      "id": "mum-02",
-      "slug": "dopamine-lab",
-      "name": "The Dopamine Lab",
-      "city": "mumbai",
-      "area": "Bandra West",
-      "lat": 19.0596,
-      "lng": 72.8295,
-      "gmapsUrl": "https://maps.google.com/?q=19.0596,72.8295",
-      "meetingPoint": "Carter Road Amphitheatre",
-      "days": [
-        "Wed",
-        "Sun"
-      ],
-      "timeLocal": "6:30 AM",
-      "avgAttendance": 70,
-      "paceBand": "moderate",
-      "paceDetail": "Structured blocks, 5:45–6:45 /km",
-      "typicalDistanceKm": [
-        6,
-        18
-      ],
-      "beginnerFriendly": true,
-      "womenFriendly": true,
-      "competitive": true,
-      "social": true,
-      "coffeeAfter": true,
-      "isFree": false,
-      "feeDetail": "Free open runs; paid training blocks",
-      "instagram": "https://instagram.com/thedopaminelab",
-      "photo": "https://images.unsplash.com/photo-1519861531473-9200262188bf?w=1600&q=80",
-      "description": "From 7 friends to 150+ members. Marathon blocks, Hyrox prep, and the strongest community energy in Bandra.",
-      "howToJoin": "Sunday open runs at Carter Road — just come. Training blocks open enrolment monthly on Instagram.",
-      "verified": true,
-      "status": "live",
-      "lastUpdated": "2026-07-02",
-      "verifiedAt": "2026-03-02",
-      "verificationMethod": "organizer-dm",
-      "verificationSource": "Confirmed over DM with the club organizer."
-    },
-    {
       "id": "del-bhag",
       "slug": "the-bhag-club",
       "name": "The Bhag Club",
@@ -360,7 +320,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 300,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -385,42 +345,6 @@
       "lastUpdated": "2026-07-15"
     },
     {
-      "id": "del-grr",
-      "slug": "gurgaon-road-runners",
-      "name": "Gurgaon Road Runners",
-      "city": "delhi",
-      "area": "Gurgaon",
-      "lat": 28.4595,
-      "lng": 77.0266,
-      "gmapsUrl": "",
-      "meetingPoint": "",
-      "days": [],
-      "timeLocal": "",
-      "avgAttendance": 120,
-      "paceBand": "all",
-      "paceDetail": "",
-      "typicalDistanceKm": [
-        5,
-        10
-      ],
-      "beginnerFriendly": true,
-      "womenFriendly": true,
-      "competitive": false,
-      "social": true,
-      "coffeeAfter": true,
-      "isFree": true,
-      "instagram": "https://instagram.com/gurgaonroadrunners",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
-      "description": "on Instagram. KYRO outreach target.",
-      "howToJoin": "Follow @gurgaonroadrunners on Instagram for weekly run announcements.",
-      "verified": true,
-      "verifiedAt": "2026-07-15",
-      "verificationMethod": "instagram",
-      "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @gurgaonroadrunners",
-      "status": "live",
-      "lastUpdated": "2026-07-15"
-    },
-    {
       "id": "del-5am",
       "slug": "5am-social",
       "name": "5am Social",
@@ -432,7 +356,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 200,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -468,7 +392,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 300,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -504,7 +428,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 90,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -540,7 +464,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 80,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -576,7 +500,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 100,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -612,7 +536,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 180,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -648,7 +572,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 90,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -684,7 +608,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 250,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -720,7 +644,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 200,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -756,7 +680,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 200,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -792,7 +716,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 150,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -828,7 +752,7 @@
       "meetingPoint": "",
       "days": [],
       "timeLocal": "",
-      "avgAttendance": 150,
+      "avgAttendance": 0,
       "paceBand": "all",
       "paceDetail": "",
       "typicalDistanceKm": [
@@ -849,6 +773,42 @@
       "verifiedAt": "2026-07-15",
       "verificationMethod": "instagram",
       "verificationSource": "Notion: KYRO India Visit Itinerary (Aug 2026) — @mumbai_road_runners",
+      "status": "live",
+      "lastUpdated": "2026-07-15"
+    },
+    {
+      "id": "mum-pudhechala",
+      "slug": "pudhechala-run-club",
+      "name": "Pudhechala Run Club",
+      "city": "mumbai",
+      "area": "Mumbai",
+      "lat": 19.076,
+      "lng": 72.8777,
+      "gmapsUrl": "",
+      "meetingPoint": "",
+      "days": [],
+      "timeLocal": "",
+      "avgAttendance": 0,
+      "paceBand": "all",
+      "paceDetail": "",
+      "typicalDistanceKm": [
+        5,
+        10
+      ],
+      "beginnerFriendly": true,
+      "womenFriendly": true,
+      "competitive": false,
+      "social": true,
+      "coffeeAfter": true,
+      "isFree": true,
+      "instagram": "https://instagram.com/pudhechala.runclub",
+      "photo": "",
+      "description": "",
+      "howToJoin": "Follow @pudhechala.runclub on Instagram for run announcements.",
+      "verified": true,
+      "verifiedAt": "2026-07-15",
+      "verificationMethod": "instagram",
+      "verificationSource": "Notion: KYRO Founder Visit Playbook — @pudhechala.runclub (16k)",
       "status": "live",
       "lastUpdated": "2026-07-15"
     }

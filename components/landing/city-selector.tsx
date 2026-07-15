@@ -76,7 +76,7 @@ export function CitySelector({ cities }: { cities: CityCard[] }) {
 
                   {/* mono meta (top-left) */}
                   <div className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.17em] text-white/80">
-                    {c.clubs} clubs · ~{c.runners.toLocaleString("en-IN")} runners
+                    {c.clubs} {c.clubs === 1 ? "club" : "clubs"}{c.runners > 0 ? ` · ~${c.runners.toLocaleString("en-IN")} runners` : ""}
                   </div>
 
                   {/* city name (bottom-left) */}
