@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 export interface CityCard {
@@ -37,19 +36,14 @@ export function CitySelector({ cities }: { cities: CityCard[] }) {
   return (
     <div className="fixed inset-0 z-[70] flex flex-col bg-[#080808] text-[#F5F3EE]">
       {/* Top bar */}
-      <motion.header
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.21, 0.6, 0.35, 1] }}
-        className="relative z-10 flex items-center justify-between px-6 py-6 sm:px-10"
-      >
+      <header className="fade-up relative z-10 flex items-center justify-between px-6 py-6 sm:px-10">
         <Link href="/map" className="font-display text-2xl leading-none tracking-tight text-[#F5F3EE]">
           RunClubs
         </Link>
         <span className="absolute left-1/2 hidden -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.17em] text-white/65 sm:block">
           Select your city
         </span>
-      </motion.header>
+      </header>
 
       {/* Carousel */}
       <div className="relative flex min-h-0 flex-1 items-center">
@@ -59,13 +53,11 @@ export function CitySelector({ cities }: { cities: CityCard[] }) {
           className="hide-scrollbar flex h-full w-full snap-x snap-mandatory items-center gap-6 overflow-x-auto scroll-smooth px-[8vw] sm:px-[calc(50vw-320px)]"
         >
           {cities.map((c, i) => (
-            <motion.div
+            <div
               key={c.slug}
               data-card
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 + i * 0.07, ease: [0.21, 0.6, 0.35, 1] }}
-              className="relative h-[64vh] max-h-[680px] w-[84vw] shrink-0 snap-center sm:w-[640px]"
+              style={{ animationDelay: `${0.1 + i * 0.07}s` }}
+              className="fade-up relative h-[64vh] max-h-[680px] w-[84vw] shrink-0 snap-center sm:w-[640px]"
             >
               <Link href={`/map?city=${c.slug}`} className="group block h-full w-full">
                 <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-gradient-to-br from-[#1c2230] via-[#141414] to-[#0c0c0c]">
@@ -98,18 +90,13 @@ export function CitySelector({ cities }: { cities: CityCard[] }) {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Bottom bar */}
-      <motion.footer
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.35 }}
-        className="relative z-10 flex items-center justify-between px-6 py-6 sm:px-10"
-      >
+      <footer className="fade-up relative z-10 flex items-center justify-between px-6 py-6 sm:px-10" style={{ animationDelay: "0.35s" }}>
         <div className="flex flex-1 items-center gap-3 font-mono text-[9px] text-white/50">
           <span className="tabular-nums">{pad(Math.min(active, cities.length - 1))}</span>
           <span className="relative h-px w-28 bg-white/20">
@@ -121,7 +108,7 @@ export function CitySelector({ cities }: { cities: CityCard[] }) {
           <span className="tabular-nums">{pad(cities.length - 1)}</span>
         </div>
         <span className="font-mono text-[9px] uppercase tracking-wider text-white/50">© 2026 RunClubs.in</span>
-      </motion.footer>
+      </footer>
     </div>
   );
 }
