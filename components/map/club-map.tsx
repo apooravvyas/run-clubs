@@ -167,6 +167,21 @@ export function ClubMap({
           /* extrusion unsupported — light map still renders */
         }
 
+        // Atmospheric sky/horizon so the tilted view reads like Workabout
+        // (avoids the flat hard cut at the top of a pitched map).
+        try {
+          (map as unknown as { setSky?: (s: Record<string, unknown>) => void }).setSky?.({
+            "sky-color": "#bcd4ea",
+            "sky-horizon-blend": 0.6,
+            "horizon-color": "#eef0ee",
+            "horizon-fog-blend": 0.6,
+            "fog-color": "#ece9e2",
+            "fog-ground-blend": 0.4,
+          });
+        } catch {
+          /* sky unsupported in this maplibre version */
+        }
+
         renderWaMarkers(map);
         map.on("click", () => onSelectRef.current?.(null));
         return;
