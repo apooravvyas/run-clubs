@@ -114,6 +114,13 @@ export function ClubMap({
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(containerRef.current);
 
+    // Reveal only when the map has actually finished rendering (tiles painted,
+    // camera settled) — the first "idle". Safety timeout so we never hang.
+    let readyFired = false;
+    const fireReady = () => { if (readyFired) return; readyFired = true; onReady?.(map); };
+    map.once("idle", fireReady);
+    const readyTimer = setTimeout(fireReady, 6000);
+
     map.on("error", (e) => console.error("[map] error", e && (e as { error?: unknown }).error));
     if (workabout) renderWaMarkers(map);
 
@@ -122,7 +129,6 @@ export function ClubMap({
     }
 
     map.on("load", () => {
-      onReady?.(map);
 
       if (workabout) {
         // Warm the light Positron palette toward Workabout's Apple-map look.
@@ -255,6 +261,7 @@ export function ClubMap({
     });
 
     return () => {
+      clearTimeout(readyTimer);
       ro.disconnect();
       map.remove();
       mapRef.current = null;

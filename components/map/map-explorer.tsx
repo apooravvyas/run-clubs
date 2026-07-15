@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
@@ -39,6 +39,14 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
   type AnyMap = { flyTo: (o: Record<string, unknown>) => void; easeTo: (o: Record<string, unknown>) => void; getZoom: () => number };
   const mapRef = useRef<AnyMap | null>(null);
   const useMapbox = !!process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+  const [ready, setReady] = useState(false);
+  const [loaderGone, setLoaderGone] = useState(false);
+  const handleReady = (m: unknown) => { mapRef.current = m as AnyMap; setReady(true); };
+  useEffect(() => {
+    if (!ready) return;
+    const t = setTimeout(() => setLoaderGone(true), 750);
+    return () => clearTimeout(t);
+  }, [ready]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -86,7 +94,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
 
   return (
     <div className="fixed inset-0 z-[60] overflow-hidden bg-[#EFEEE9]">
-      <div className="absolute inset-0">
+      <div className={cn("absolute inset-0 map-stage", ready ? "map-stage--ready" : "map-stage--loading")}>
         {useMapbox ? (
           <MapboxMap
             clubs={filtered}
@@ -94,7 +102,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
             zoom={zoom}
             selectedId={selected?.id ?? null}
             onSelect={onSelect}
-            onReady={(m) => (mapRef.current = m as unknown as AnyMap)}
+            onReady={handleReady}
             className="h-full w-full"
           />
         ) : (
@@ -105,11 +113,15 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
             selectedId={selected?.id ?? null}
             onSelect={onSelect}
             workabout
-            onReady={(m) => (mapRef.current = m as unknown as AnyMap)}
+            onReady={handleReady}
             className="h-full w-full"
           />
         )}
       </div>
+
+      {!loaderGone && (
+        <MapLoader city={cityLabel} lat={center[1]} lng={center[0]} hidden={ready} />
+      )}
 
       {/* Top-left glass card */}
       <div className="pointer-events-auto absolute left-4 top-4 z-10 w-[min(92vw,420px)]">

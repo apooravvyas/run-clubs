@@ -87,16 +87,21 @@ export function MapboxMap({
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(containerRef.current);
 
+    let readyFired = false;
+    const fireReady = () => { if (readyFired) return; readyFired = true; onReady?.(map); };
+    map.once("idle", fireReady);
+    const readyTimer = setTimeout(fireReady, 6000);
+
     map.on("style.load", () => {
       try { map.setConfigProperty("basemap", "lightPreset", "day"); } catch { /* older style */ }
     });
     map.on("load", () => {
-      onReady?.(map);
       renderMarkers(map);
       map.on("click", () => onSelectRef.current?.(null));
     });
 
     return () => {
+      clearTimeout(readyTimer);
       ro.disconnect();
       map.remove();
       mapRef.current = null;
