@@ -15,6 +15,7 @@ import dynamic from "next/dynamic";
 // hydrates immediately (buttons/drawer work before the map chunk arrives).
 const ClubMap = dynamic(() => import("@/components/map/club-map").then((m) => m.ClubMap), { ssr: false });
 const MapboxMap = dynamic(() => import("@/components/map/mapbox-map").then((m) => m.MapboxMap), { ssr: false });
+import { MapLoader } from "@/components/map/map-loader";
 import { cn, formatDays } from "@/lib/utils";
 
 const PACE_FILTERS: (PaceBand | "any")[] = ["any", "all", "easy", "moderate", "fast"];
