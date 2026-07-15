@@ -44,3 +44,25 @@ export const VERIFICATION_BLURB: Record<VerificationState, string> = {
   stale: "Confirmed a while ago — we're re-checking the details.",
   unverified: "Listed from public info, not yet confirmed with the club.",
 };
+
+/** Public trust tiers — never expose internal source names. */
+export type VerificationTier = "club" | "public" | "community" | "none";
+
+export function tierOf(club: Pick<Club, "verified" | "verificationTier">): VerificationTier {
+  if (!club.verified) return "none";
+  return club.verificationTier ?? "public";
+}
+
+export const TIER_LABEL: Record<VerificationTier, string> = {
+  club: "Verified by club",
+  public: "Verified via public sources",
+  community: "Community verified",
+  none: "Not verified",
+};
+
+export const TIER_BLURB: Record<VerificationTier, string> = {
+  club: "Confirmed directly by the club's organisers.",
+  public: "Confirmed from the club's public Instagram.",
+  community: "Confirmed by community members.",
+  none: "We haven't confirmed this club's details yet.",
+};

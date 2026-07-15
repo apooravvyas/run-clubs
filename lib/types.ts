@@ -62,8 +62,10 @@ export interface Club {
   verifiedAt?: string;
   /** How the club was confirmed. */
   verificationMethod?: VerificationMethod;
-  /** Free-text note on the verification (who confirmed, any caveats). */
+  /** Free-text note on the verification (who confirmed, any caveats). INTERNAL — never render. */
   verificationSource?: string;
+  /** How the listing was verified (drives the public trust label). */
+  verificationTier?: "club" | "public" | "community";
   status: ClubStatus;
   lastUpdated: string;
 }

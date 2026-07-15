@@ -118,7 +118,8 @@
       "area": "Indiranagar",
       "lat": 12.9719,
       "lng": 77.6408,
-      "instagram": "https://instagram.com/indiranagar_runclub"
+      "instagram": "https://instagram.com/indiranagar_runclub",
+      "verificationTier": "public"
     },
     {
       "gmapsUrl": "",
@@ -156,7 +157,8 @@
       "area": "Bengaluru",
       "lat": 12.9719,
       "lng": 77.6412,
-      "instagram": "https://instagram.com/stride_runclub_bengaluru"
+      "instagram": "https://instagram.com/stride_runclub_bengaluru",
+      "verificationTier": "public"
     },
     {
       "gmapsUrl": "",
@@ -194,7 +196,8 @@
       "area": "Cubbon Park",
       "lat": 12.9763,
       "lng": 77.5946,
-      "instagram": "https://instagram.com/bengalururunners"
+      "instagram": "https://instagram.com/bengalururunners",
+      "verificationTier": "public"
     },
     {
       "gmapsUrl": "",
@@ -230,7 +233,8 @@
       "area": "HSR Layout",
       "lat": 12.9081,
       "lng": 77.6446,
-      "instagram": "https://instagram.com/hsr_runclub"
+      "instagram": "https://instagram.com/hsr_runclub",
+      "verificationTier": "public"
     },
     {
       "gmapsUrl": "",
@@ -268,7 +272,8 @@
       "area": "BEL / Cubbon Park",
       "lat": 12.9763,
       "lng": 77.5946,
-      "instagram": "https://instagram.com/belbullets"
+      "instagram": "https://instagram.com/belbullets",
+      "verificationTier": "public"
     },
     {
       "id": "blr-04",
@@ -298,7 +303,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/daudrunclub",
-      "photo": "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=1600&q=80",
+      "photo": "",
       "description": "The startup crowd's Saturday ritual. Easy pace, big group, breakfast is mandatory, networking is accidental.",
       "howToJoin": "Open run — arrive at HSR BDA Complex by 6:10 AM. WhatsApp community link pinned on Instagram.",
       "verified": true,
@@ -306,7 +311,8 @@
       "lastUpdated": "2026-07-05",
       "verifiedAt": "2026-07-15",
       "verificationMethod": "website",
-      "verificationSource": "Notion: KYRO India Visit Itinerary (Aug 2026) — @daudrunclub (corrected from @daud.run)"
+      "verificationSource": "Notion: KYRO India Visit Itinerary (Aug 2026) — @daudrunclub (corrected from @daud.run)",
+      "verificationTier": "public"
     },
     {
       "id": "del-bhag",
@@ -334,7 +340,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/bhagclub",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "98K followers (verified) on Instagram. KYRO Tier-S; Gen Z run community.",
       "howToJoin": "Follow @bhagclub on Instagram for weekly run announcements.",
       "verified": true,
@@ -342,7 +348,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @bhagclub, 98K followers (verified)",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "del-5am",
@@ -370,7 +377,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/5amsocialrunclub",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "49.4K followers (verified) on Instagram.",
       "howToJoin": "Follow @5amsocialrunclub on Instagram for weekly run announcements.",
       "verified": true,
@@ -378,7 +385,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @5amsocialrunclub, 49.4K followers (verified)",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "hyd-hrs",
@@ -406,7 +414,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/hyderabadrunnerssociety",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "16K, 45+ chapters on Instagram. KYRO Tier-S; founder Rajesh Vetcha.",
       "howToJoin": "Follow @hyderabadrunnerssociety on Instagram for weekly run announcements.",
       "verified": true,
@@ -414,7 +422,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @hyderabadrunnerssociety, 16K, 45+ chapters",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "hyd-hydrn",
@@ -442,7 +451,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/hydrn.in",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "on Instagram.",
       "howToJoin": "Follow @hydrn.in on Instagram for weekly run announcements.",
       "verified": true,
@@ -450,7 +459,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @hydrn.in",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "hyd-logout",
@@ -478,7 +488,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/logoutrunners",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "on Instagram.",
       "howToJoin": "Follow @logoutrunners on Instagram for weekly run announcements.",
       "verified": true,
@@ -486,7 +496,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @logoutrunners",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "pun-wepersist",
@@ -514,7 +525,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/wepersist.club",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "on Instagram.",
       "howToJoin": "Follow @wepersist.club on Instagram for weekly run announcements.",
       "verified": true,
@@ -522,7 +533,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @wepersist.club",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "pun-alpha",
@@ -550,7 +562,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/alpha_runclub",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "28.9K followers (verified) on Instagram.",
       "howToJoin": "Follow @alpha_runclub on Instagram for weekly run announcements.",
       "verified": true,
@@ -558,7 +570,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @alpha_runclub, 28.9K followers (verified)",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "pun-gati",
@@ -586,7 +599,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/gati.crew",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "on Instagram.",
       "howToJoin": "Follow @gati.crew on Instagram for weekly run announcements.",
       "verified": true,
@@ -594,7 +607,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @gati.crew",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "che-runners",
@@ -622,7 +636,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/chennairunners",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "on Instagram. KYRO outreach target; major Chennai club.",
       "howToJoin": "Follow @chennairunners on Instagram for weekly run announcements.",
       "verified": true,
@@ -630,7 +644,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Instagram (handle verified) + KYRO India GTM V0 — @chennairunners",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "del-drc",
@@ -658,7 +673,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/delhiruncollective",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "",
       "howToJoin": "Follow @delhiruncollective on Instagram for run announcements.",
       "verified": true,
@@ -666,7 +681,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Notion: KYRO India Visit Itinerary (Aug 2026) — @delhiruncollective, 15.8k (IG-verified active)",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "mum-bombay-running",
@@ -694,7 +710,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/bombayrunning",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "",
       "howToJoin": "Follow @bombayrunning on Instagram for run announcements.",
       "verified": true,
@@ -702,7 +718,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Notion: KYRO India Visit Itinerary (Aug 2026) — @bombayrunning",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "mum-overlydaa",
@@ -730,7 +747,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/overlydaa",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "",
       "howToJoin": "Follow @overlydaa on Instagram for run announcements.",
       "verified": true,
@@ -738,7 +755,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Notion: KYRO India Visit Itinerary (Aug 2026) — @overlydaa (creator-led run-and-rave)",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "mum-road-runners",
@@ -766,7 +784,7 @@
       "coffeeAfter": true,
       "isFree": true,
       "instagram": "https://instagram.com/mumbai_road_runners",
-      "photo": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1600&q=80",
+      "photo": "",
       "description": "",
       "howToJoin": "Follow @mumbai_road_runners on Instagram for run announcements.",
       "verified": true,
@@ -774,7 +792,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Notion: KYRO India Visit Itinerary (Aug 2026) — @mumbai_road_runners",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     },
     {
       "id": "mum-pudhechala",
@@ -810,7 +829,8 @@
       "verificationMethod": "instagram",
       "verificationSource": "Notion: KYRO Founder Visit Playbook — @pudhechala.runclub (16k)",
       "status": "live",
-      "lastUpdated": "2026-07-15"
+      "lastUpdated": "2026-07-15",
+      "verificationTier": "public"
     }
   ]
 }

@@ -21,21 +21,28 @@ export function ClubCard({ club, index = 0 }: { club: Club; index?: number }) {
         href={`/clubs/${club.slug}`}
         className="group block overflow-hidden rounded-2xl bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-signal/40"
       >
-        <div className="relative h-44 overflow-hidden">
-          <Image
-            src={club.photo}
-            alt={club.name}
-            fill
-            sizes="(max-width: 768px) 100vw, 380px"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-          />
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/45 to-transparent" />
-          <div className="absolute bottom-3 left-4 flex items-center gap-2">
-            <PaceBadge band={club.paceBand} />
-            {club.isFree && (
-              <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-ink">Free</span>
-            )}
-          </div>
+        <div className="relative h-44 overflow-hidden bg-ink">
+          {club.photo ? (
+            <>
+              <Image
+                src={club.photo}
+                alt={club.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 380px"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/45 to-transparent" />
+            </>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="font-display text-4xl text-paper/80">{club.name.slice(0, 1)}</span>
+            </div>
+          )}
+          {club.paceDetail && (
+            <div className="absolute bottom-3 left-4 flex items-center gap-2">
+              <PaceBadge band={club.paceBand} />
+            </div>
+          )}
         </div>
         <div className="p-5">
           <div className="flex items-start justify-between gap-3">

@@ -189,8 +189,14 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
             className="pointer-events-auto absolute inset-x-4 bottom-4 z-20 mx-auto max-w-md sm:inset-x-auto sm:bottom-5 sm:right-5"
           >
             <div className="wa-drawer overflow-hidden rounded-2xl">
-              <div className="relative h-32">
-                <Image src={selected.photo} alt={selected.name} fill sizes="440px" className="object-cover" />
+              <div className="relative h-32 bg-[#1c1c1b]">
+                {selected.photo ? (
+                  <Image src={selected.photo} alt={selected.name} fill sizes="440px" className="object-cover" />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="font-display text-3xl text-[#f7f4ee]/80">{selected.name.slice(0, 1)}</span>
+                  </div>
+                )}
                 <button onClick={() => setSelected(null)} className="wa-round wa-round--dark absolute right-3 top-3 !h-9 !w-9" aria-label="Close">
                   <X className="h-4 w-4" />
                 </button>
@@ -201,7 +207,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
                   <MapPin className="h-3.5 w-3.5" /> {selected.area}, {cities.find((c) => c.slug === selected.city)?.name ?? selected.city}
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-[#e7e1d6]/80">
-                  <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> {formatDays(selected.days)} · {selected.timeLocal}</span>
+                  {selected.days.length > 0 && selected.timeLocal && (<span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> {formatDays(selected.days)} · {selected.timeLocal}</span>)}
                   {selected.avgAttendance > 0 && (<span className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> ~{selected.avgAttendance}</span>)}
                   <span className="wa-mono !text-[#e7e1d6]/60">{PACE_SHORT[selected.paceBand]}</span>
                 </div>
