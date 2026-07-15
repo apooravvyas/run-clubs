@@ -171,11 +171,11 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
         </button>
       </div>
 
-      {/* Bottom-right controls */}
-      <div className="absolute bottom-5 right-5 z-10 flex flex-col items-center gap-2">
-        <button className="wa-round" onClick={() => zoomBy(1)} aria-label="Zoom in"><Plus className="h-5 w-5" /></button>
-        <button className="wa-round" onClick={() => zoomBy(-1)} aria-label="Zoom out"><Minus className="h-5 w-5" /></button>
-        <button className="wa-round" onClick={resetNorth} aria-label="Reset view"><Navigation className="h-4 w-4" /></button>
+      {/* Bottom-right controls (minimal, Workabout-style) */}
+      <div className="absolute bottom-5 right-5 z-10 flex flex-col items-center gap-1">
+        <button className="wa-ctrl" onClick={() => zoomBy(1)} aria-label="Zoom in"><Plus className="h-5 w-5" strokeWidth={1.75} /></button>
+        <button className="wa-ctrl" onClick={() => zoomBy(-1)} aria-label="Zoom out"><Minus className="h-5 w-5" strokeWidth={1.75} /></button>
+        <button className="wa-nav mt-1" onClick={resetNorth} aria-label="Reset view"><Navigation className="h-4 w-4 fill-current" /></button>
       </div>
 
       {/* Selected-club detail card (dark) */}
