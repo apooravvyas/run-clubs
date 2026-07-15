@@ -72,7 +72,7 @@ export function CitySelector({ cities }: { cities: CityCard[] }) {
                     />
                   )}
                   {/* legibility gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
 
                   {/* mono meta (top-left) */}
                   <div className="absolute left-6 top-6 font-mono text-[10px] uppercase tracking-[0.17em] text-white/80">
