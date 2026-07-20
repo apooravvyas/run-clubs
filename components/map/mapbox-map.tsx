@@ -101,10 +101,11 @@ export function MapboxMap({
         map.setConfigProperty("basemap", "show3dObjects", true);
       } catch { /* older style */ }
     });
-    map.on("load", () => {
-      renderMarkers(map);
-      map.on("click", () => onSelectRef.current?.(null));
-    });
+    // Markers are DOM overlays — they do not depend on the style being loaded.
+    // Render them eagerly so pins can never be lost to event-timing races.
+    renderMarkers(map);
+    map.on("click", () => onSelectRef.current?.(null));
+    map.on("error", (e) => console.error("[map]", (e as { error?: unknown }).error ?? e));
 
     return () => {
       clearTimeout(readyTimer);
@@ -118,8 +119,7 @@ export function MapboxMap({
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    if (map.isStyleLoaded()) renderMarkers(map);
-    else map.once("load", () => renderMarkers(map));
+    renderMarkers(map);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clubs]);
 
