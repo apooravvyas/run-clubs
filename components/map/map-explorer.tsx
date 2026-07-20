@@ -132,8 +132,14 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
       {/* Top-right: areas + */}
       <div className="absolute right-5 top-5 z-10 flex items-center gap-4">
         <div className="relative">
-          <button className="wa-mono flex items-center gap-1" onClick={() => setAreasOpen((v) => !v)}>
-            Cities <span className="text-base leading-none">+</span>
+          <button
+            className="wa-card flex items-center gap-2 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.17em] text-[#151515] transition-transform hover:-translate-y-0.5"
+            onClick={() => setAreasOpen((v) => !v)}
+            aria-label="Switch city"
+          >
+            <MapPin className="h-3.5 w-3.5" />
+            {cityLabel}
+            <span className="text-sm leading-none opacity-60">▾</span>
           </button>
           <AnimatePresence>
             {areasOpen && (

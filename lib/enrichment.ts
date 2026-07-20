@@ -6,6 +6,11 @@ export interface ClubEnrichment {
   followersSource?: string;
   igVerified?: boolean | null;
   email?: string;
+  /** Real Instagram bio — the club's own voice. Preferred over editorial copy. */
+  bio?: string;
+  whatsapp?: string;
+  website?: string;
+  events?: string;
 }
 export interface ClubAssets {
   logo: string | null;

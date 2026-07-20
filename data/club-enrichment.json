@@ -1,24 +1,32 @@
 {
   "indiranagar-run-club": {
-    "followers": "44.5k",
+    "followers": "44.6k",
     "followersSource": "ig_live",
     "igVerified": true,
-    "email": "collab@indiranagarrunclub.in"
+    "email": "collab@indiranagarrunclub.in",
+    "bio": "Rebranding to \u201cMain Mission\u201d \u00b7 Running & Tennis \u00b7 all events on website. \ud83d\udccdBangalore",
+    "events": "https://luma.com/g5q8ng63"
   },
   "the-bhag-club": {
-    "followers": "98k",
+    "followers": "98.3k",
     "followersSource": "ig_live",
-    "igVerified": true
+    "igVerified": true,
+    "bio": "Boring run clubs 2024\u20132026 \ud83d\udc0e",
+    "website": "https://www.bhag.co.in"
   },
   "stride-run-club": {
     "followers": "54.3k",
     "followersSource": "ig_live",
-    "igVerified": true
+    "igVerified": true,
+    "bio": "Move as one. All fitness levels welcome. \ud83d\udccdBengaluru",
+    "website": "https://www.strideclub.in"
   },
   "daud-bangalore": {
-    "followers": "40k",
-    "followersSource": "public_research",
-    "igVerified": null
+    "followers": "43k",
+    "followersSource": "ig_live",
+    "igVerified": null,
+    "bio": "health + culture + community \u00b7 we make running sexy",
+    "email": "collaboratewithdaud@gmail.com"
   },
   "bel-bullets": {
     "followers": "4k",
@@ -32,12 +40,16 @@
   "hsr-run-club": {
     "followers": "1.6k",
     "followersSource": "ig_live",
-    "igVerified": true
+    "igVerified": true,
+    "bio": "HSR Run & Sports Club \u00b7 \ud83d\udccdHSR Layout, Bengaluru"
   },
   "5am-social": {
-    "followers": "49.4k",
+    "followers": "49.7k",
     "followersSource": "ig_live",
-    "igVerified": true
+    "igVerified": true,
+    "bio": "India\u2019s First Hybrid Run Club. Running. Hybrid Training. Community. \ud83d\udccdDelhi NCR",
+    "whatsapp": "https://whatsapp.com/channel/0029VbCwWf2LdQeb3yIXVl2n",
+    "email": "Team.5amsocial@gmail.com"
   },
   "delhi-run-collective": {
     "followers": "15.8k",
@@ -45,9 +57,11 @@
     "igVerified": false
   },
   "bombay-running": {
-    "followers": "17k",
-    "followersSource": "public_research",
-    "igVerified": null
+    "followers": "16.6k",
+    "followersSource": "ig_live",
+    "igVerified": null,
+    "bio": "Estd. 2017 \u00b7 Bombay is an emotion which runs across the globe!",
+    "whatsapp": "https://chat.whatsapp.com/GWyJ4JH3EPr0vIe1f0ZPbT"
   },
   "overlydaa": {
     "followers": null,
@@ -63,9 +77,11 @@
     "igVerified": null
   },
   "wepersist": {
-    "followers": "26k",
-    "followersSource": "public_research",
-    "igVerified": null
+    "followers": "25.3k",
+    "followersSource": "ig_live",
+    "igVerified": null,
+    "bio": "Redefining run clubs in India \u00b7 Built with @persistfit.in",
+    "website": "https://linktr.ee/wepersist.club"
   },
   "alpha-run-club": {
     "followers": "28.9k",

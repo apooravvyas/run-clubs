@@ -184,16 +184,22 @@ export default async function ClubPage({
                 <Instagram className="h-4 w-4" /> {handle ? `@${handle}` : "Instagram"}
               </a>
             )}
-            {club.whatsapp && (
-              <a href={club.whatsapp} target="_blank" rel="noopener noreferrer"
+            {(club.whatsapp || enrich.whatsapp) && (
+              <a href={club.whatsapp || enrich.whatsapp} target="_blank" rel="noopener noreferrer"
                  className="inline-flex h-11 items-center gap-2 rounded-full border border-track px-6 text-sm font-medium text-ink transition-colors hover:border-stone">
                 <MessageCircle className="h-4 w-4" /> WhatsApp
               </a>
             )}
-            {club.website && (
-              <a href={club.website} target="_blank" rel="noopener noreferrer"
+            {(club.website || enrich.website) && (
+              <a href={club.website || enrich.website} target="_blank" rel="noopener noreferrer"
                  className="inline-flex h-11 items-center gap-2 rounded-full border border-track px-6 text-sm font-medium text-ink transition-colors hover:border-stone">
                 <Globe className="h-4 w-4" /> Website
+              </a>
+            )}
+            {enrich.events && (
+              <a href={enrich.events} target="_blank" rel="noopener noreferrer"
+                 className="inline-flex h-11 items-center gap-2 rounded-full border border-track px-6 text-sm font-medium text-ink transition-colors hover:border-stone">
+                <ExternalLink className="h-4 w-4" /> Events
               </a>
             )}
             {enrich.email && (
@@ -210,7 +216,12 @@ export default async function ClubPage({
             {/* 4 · About */}
             <section>
               <h2 className="font-display text-2xl text-ink">About</h2>
-              {club.description ? (
+              {enrich.bio ? (
+                <>
+                  <p className="mt-3 text-[17px] leading-relaxed text-ink/85">{enrich.bio}</p>
+                  <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.17em] text-stone">From the club’s Instagram</p>
+                </>
+              ) : club.description ? (
                 <p className="mt-3 text-[16px] leading-relaxed text-ink/80">{club.description}</p>
               ) : (
                 <p className="mt-3 text-[15px] leading-relaxed text-stone">
