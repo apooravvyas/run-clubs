@@ -103,8 +103,11 @@
     "igVerified": null
   },
   "logout-runners": {
-    "followers": null,
-    "igVerified": null
+    "followers": "8.8k",
+    "followersSource": "ig_live",
+    "igVerified": false,
+    "bio": "\ud83e\udd19 the coolest RUN CLUB that hyderabad needed \u00b7 \ud83d\udcf4 reducing your screentime \u00b7 geared by @underarmourind \u00b7 invite via form",
+    "website": "https://forms.gle/a52GMXfnVCFKKFXv8"
   },
   "chennai-runners": {
     "followers": null,

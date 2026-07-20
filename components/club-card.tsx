@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { MapPin, Clock, Users, ShieldCheck } from "lucide-react";
 import type { Club } from "@/lib/types";
 import { getEnrichment, getAssets } from "@/lib/enrichment";
+import { ClubAvatar } from "@/components/club-avatar";
 import Image from "next/image";
 import { formatDays } from "@/lib/utils";
 
@@ -39,11 +40,9 @@ export function ClubCard({ club, index = 0 }: { club: Club; index?: number }) {
               <Image src={assets.cover} alt="" fill sizes="380px" className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </>
-          ) : assets.logo ? (
-            <Image src={assets.logo} alt={`${club.name} logo`} width={72} height={72} className="h-18 w-18 rounded-full border border-paper/25 object-cover" />
           ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-paper/20 bg-paper/5 transition-transform duration-300 group-hover:scale-105">
-              <span className="font-display text-2xl text-paper/90">{club.name.slice(0, 1)}</span>
+            <div className="transition-transform duration-300 group-hover:scale-105">
+              <ClubAvatar slug={club.slug} name={club.name} size={72} />
             </div>
           )}
           {enrich.followers && (

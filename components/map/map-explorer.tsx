@@ -15,6 +15,7 @@ import dynamic from "next/dynamic";
 // hydrates immediately (buttons/drawer work before the map chunk arrives).
 const MapboxMap = dynamic(() => import("@/components/map/mapbox-map").then((m) => m.MapboxMap), { ssr: false });
 import { MapLoader } from "@/components/map/map-loader";
+import { ClubAvatar } from "@/components/club-avatar";
 import { cn, formatDays } from "@/lib/utils";
 
 const PACE_FILTERS: (PaceBand | "any")[] = ["any", "all", "easy", "moderate", "fast"];
@@ -200,7 +201,7 @@ export function MapExplorer({ clubs, cities, initialCity }: Props) {
                   <Image src={selected.photo} alt={selected.name} fill sizes="440px" className="object-cover" />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-display text-3xl text-[#f7f4ee]/80">{selected.name.slice(0, 1)}</span>
+                    <ClubAvatar slug={selected.slug} name={selected.name} size={64} />
                   </div>
                 )}
                 <button onClick={() => setSelected(null)} className="wa-round wa-round--dark absolute right-3 top-3 !h-9 !w-9" aria-label="Close">

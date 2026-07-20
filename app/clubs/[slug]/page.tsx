@@ -11,6 +11,7 @@ import { type Club } from "@/lib/types";
 import { getEnrichment, getAssets, hasRealGallery } from "@/lib/enrichment";
 import { tierOf, TIER_LABEL, TIER_BLURB } from "@/lib/verification";
 import { ClubCard } from "@/components/club-card";
+import { ClubAvatar } from "@/components/club-avatar";
 import { ClubMap } from "@/components/map/club-map";
 
 export async function generateStaticParams() {
@@ -44,21 +45,6 @@ function igHandle(url?: string): string | null {
   return m ? m[1] : null;
 }
 
-function Monogram({ name, size = "lg" }: { name: string; size?: "lg" | "sm" }) {
-  return (
-    <div
-      className={
-        size === "lg"
-          ? "flex h-24 w-24 items-center justify-center rounded-full border border-paper/25 bg-paper/10 sm:h-28 sm:w-28"
-          : "flex h-12 w-12 items-center justify-center rounded-full border border-paper/25 bg-paper/10"
-      }
-    >
-      <span className={size === "lg" ? "font-display text-4xl text-paper" : "font-display text-xl text-paper"}>
-        {name.slice(0, 1)}
-      </span>
-    </div>
-  );
-}
 
 function MonoLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -111,17 +97,7 @@ export default async function ClubPage({
         )}
         <div className="relative mx-auto max-w-5xl px-5 pb-12 pt-16 sm:pb-16 sm:pt-24">
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
-            {assets.logo ? (
-              <Image
-                src={assets.logo}
-                alt={`${club.name} logo`}
-                width={112}
-                height={112}
-                className="h-24 w-24 rounded-full border border-paper/25 object-cover sm:h-28 sm:w-28"
-              />
-            ) : (
-              <Monogram name={club.name} />
-            )}
+            <ClubAvatar slug={club.slug} name={club.name} size={112} className="shrink-0" />
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-paper/25 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.17em] text-paper/80">
